@@ -77,3 +77,5 @@ fi
 #source ~/.bash_aliases
 export PYTHONSTARTUP=~/.pythonrc
 set -o ignoreeof
+GPG_TTY=$(tty)
+export GPG_TTY

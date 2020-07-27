@@ -19,7 +19,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 " - Special files -
 Plug 'vimwiki/vimwiki'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
@@ -28,10 +28,12 @@ Plug 'dbeniamine/todo.txt-vim'
 "Plug 'plasticboy/vim-markdown'
 " - Appearance/syntax -
 Plug 'https://github.com/nanotech/jellybeans.vim'
+Plug 'Konfekt/FastFold'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 " - Unused -
-Plug 'chazy/dirsettings'
+"Plug 'chazy/dirsettings'
+"Plug 'itchyny/calendar.vim'
 "Plug 'aditya-azad/candle-grey'
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'https://github.com/sjl/badwolf/'
@@ -186,7 +188,7 @@ let $BASH_ENV="~/.vim_bash_env"
 "--- VIMWIKI ---
 set conceallevel=2
 "let g:vimwiki_folding = 'list'
-let g:vimwiki_list = [{'path': '~/Sync/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/projects/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_global_ext = 0
 "nmap <leader>wp :cd %:p:h<cr>:!git commit -a -m "vim autocommit"; git push<cr>
@@ -202,10 +204,16 @@ endfunc
 
 let g:instant_markdown_autostart = 0
 "GIT GUTTER
-set updatetime=100
+set updatetime=500
 "let g:gitgutter_sign_column_always=1
 "let g:gitgutter_enabled=0
 set signcolumn=yes
+
+" FASTFOLD
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
 "}}}
 
