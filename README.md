@@ -1,3 +1,7 @@
+# What is it?
+
+My Linux config files so I can pull them anywhere and don't lose them.
+
 # Usage
 
 Clone a bare repo:
