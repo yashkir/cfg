@@ -1,6 +1,6 @@
-TODOFLAGS="-a"
-alias t="~/bin/todo.txt/todo.sh $TODOFLAGS"
-alias tl="~/bin/todo.txt/todo.sh $TODOFLAGS list"
+#TODOFLAGS="-a"
+#alias t="~/bin/todo.txt/todo.sh $TODOFLAGS"
+#alias tl="~/bin/todo.txt/todo.sh $TODOFLAGS list"
 
 alias lynx="lynx -cookies -vikeys"
 

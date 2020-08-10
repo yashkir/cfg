@@ -43,7 +43,7 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'pangloss/vim-javascript'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'Yggdroot/indentLine'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'fannheyward/coc-marketplace'
 "Plug 'bluz71/vim-moonfly-colors'
 "Plug 'cohama/lexima.vim'
@@ -73,9 +73,9 @@ set foldlevelstart=99
 
 let javaScript_fold=1
 
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+"set backupdir=~/.vim/backup//
+"set directory=~/.vim/swap//
+"set undodir=~/.vim/undo//
 "}}}
 "{{{--- BINDS ---
 map <F9> :e $HOME/.vimrc<CR>
@@ -106,6 +106,8 @@ nnoremap <C-p> :GFiles<CR>
 
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
+
+nmap <leader>D <plug>(YCMHover)
 
 "}}}}}}
 "{{{--- AutoCMD ---
@@ -183,6 +185,7 @@ endfunc
 "}}}
 "{{{--- Other ---
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_auto_hover=''
 let $BASH_ENV="~/.vim_bash_env"
 
 "--- VIMWIKI ---

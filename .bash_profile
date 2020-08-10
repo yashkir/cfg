@@ -1,2 +1,7 @@
-export PATH=/home/yashkir/bin/todo.txt:/home/yashkir/.local/kitty.app/bin:$PATH
-source ~/.bashrc
+#
+# ~/.bash_profile
+#
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+export PATH=$PATH:~/bin/
