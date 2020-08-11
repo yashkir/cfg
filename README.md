@@ -15,3 +15,9 @@ Set up an alias to use the bare repo:
 Pull it:
 
     config pull
+
+# Things to do on a new machine
+
+- terminal font: Iosevka
+- WM workspace and window shortcuts with META key
+- depending on DE: /usr/bin/setxkbmap -option "ctrl:nocaps"
