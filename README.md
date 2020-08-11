@@ -21,3 +21,4 @@ Pull it:
 - terminal font: Iosevka
 - WM workspace and window shortcuts with META key
 - depending on DE: /usr/bin/setxkbmap -option "ctrl:nocaps"
+- set up pCloud syncs: projects, admin, music_sync
