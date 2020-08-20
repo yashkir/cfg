@@ -3,9 +3,7 @@
 set background=dark
 
 "{{{--- Plugins --- 
-
-" Begin plug.vim ---------------------------------------------------------------
-" Set up Plug if not installed
+" Set up plug.vim if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -19,39 +17,22 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/coc-marketplace'
 " - Special files -
 Plug 'vimwiki/vimwiki'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dbeniamine/todo.txt-vim'
-"Plug 'godlygeek/tabular' " markdown dependency
-"Plug 'plasticboy/vim-markdown'
 " - Appearance/syntax -
 Plug 'https://github.com/nanotech/jellybeans.vim'
 Plug 'Konfekt/FastFold'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
-" - Unused -
-"Plug 'chazy/dirsettings'
-"Plug 'itchyny/calendar.vim'
-"Plug 'aditya-azad/candle-grey'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'https://github.com/sjl/badwolf/'
-"Plug 'gruvbox-community/gruvbox'
-"Plug 'morhetz/gruvbox'
-"Plug 'powerline/powerline'
-"Plug 'pangloss/vim-javascript'
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'Yggdroot/indentLine'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'fannheyward/coc-marketplace'
-"Plug 'bluz71/vim-moonfly-colors'
+" - Currently Unused -
+"Plug 'ycm-core/YouCompleteMe'
 "Plug 'cohama/lexima.vim'
-"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 call plug#end()
-" End Plugins ------------------------------------------------------------------
-
-"}}}--- PLUGIN SPECIFIC ---
+"}}}
 "{{{--- BASIC SETs ---
 set nocompatible
 set tabstop=2
@@ -66,6 +47,10 @@ set number
 set relativenumber
 set incsearch
 set wildmode=list:longest,list:full
+set updatetime=500
+set signcolumn=yes
+
+let $BASH_ENV="~/.vim_bash_env"
 
 """ FOLDING
 set foldmethod=syntax
@@ -78,36 +63,31 @@ let javaScript_fold=1
 "set undodir=~/.vim/undo//
 "}}}
 "{{{--- BINDS ---
-map <F9> :e $HOME/.vimrc<CR>
-map <F6> :so $HOME/.vimrc<CR>
-map <Space> za
 let mapleader = ","
 let maplocalleader = "\\"
-map <Leader>m :w<CR>:!make test<CR>
-"map <Leader>t :tabnext<CR>
-map <Leader>tl :!td ls<CR>
-map <Leader>T :vsplit /home/yashkir/.todo/todo.txt<CR>
-map <Leader>w :w<CR>
-map <Leader>i :IndentLinesToggle<CR>
-map <Leader>r :w<CR>:!%:p<CR>
-"map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F8> :w<CR>:!gcc % -o %< && ./%<<CR>
+map <F9> :e $HOME/.vimrc<CR>
+map <F6> :so $HOME/.vimrc<CR>
+
+map <Space> za
+map <S-Enter> O<Esc>
+map <CR> o<Esc>
+
+map <leader>m :w<CR>:!make test<CR>
+map <leader>w :w<CR>
+map <leader>r :w<CR>:!%:p<CR>
 map <leader>h :set hlsearch!<CR>
-map <leader>o :browse old<CR>
+map <leader>md :InstantMarkdownPreview<CR>
+
+" --- Plugins
 map <leader>g :GitGutterToggle<CR>
-" --- FZF
 map <leader>p :Files ~/projects/<CR>
 map <leader>f~ :Files ~<CR>
 map <leader>f. :Files .<CR>
 map <leader>fh :History<CR>
 map <leader>G :Git<CR>
 map <leader>fh :History<CR>
-map <leader>md :InstantMarkdownPreview<CR>
 nnoremap <C-p> :GFiles<CR>
-
-map <S-Enter> O<Esc>
-map <CR> o<Esc>
-
-nmap <leader>D <plug>(YCMHover)
 
 "}}}}}}
 "{{{--- AutoCMD ---
@@ -126,7 +106,7 @@ autocmd FileType htmldjango let b:surround_45 = "{{ \r }}"
 autocmd FileType vimwiki setlocal nowrap
 autocmd FileType vimwiki setlocal shiftwidth=4
 autocmd FileType vimwiki setlocal tabstop=4
-
+autocmd FileType markdown setlocal tabstop=4
 "autocmd FileType help wincmd L
 "}}}
 "{{{--- APPEARANCE ---
@@ -135,34 +115,21 @@ autocmd FileType vimwiki setlocal tabstop=4
 "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 "set termguicolors
 
-set background=dark
-let g:gruvbox_contrast_dark = 'hard'
-let g:jellybeans_use_term_italics = 1
-"let g:gruvbox_colors = { 'bg0': 0 }
-"colorscheme gruvbox
-"colorscheme yashkir
-
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-"let g:airline_powerline_fonts = 1
-"let g:airline_symbols.linenr = ''
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.maxlinenr = ''
-"let g:airline_symbols.dirty=''
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
-"let g:airline_symbols.linenr = '⭡'
 let g:airline_symbols.whitespace = ''
+
+let g:jellybeans_use_term_italics = 1
 let g:jellybeans_overrides = {
 \    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \    'SignColumn': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\    'Pmenu': { '256ctermfg': '255', '256ctermbg': 235 },
 \}
-"\    'Function': { '256ctermfg': '221' },
 colorscheme jellybeans
 
 set foldtext=MyFoldText()
@@ -174,19 +141,8 @@ function! MyFoldText()
     let fillcharcount = winwidth(0) - strdisplaywidth(line_text) - 15
     return line_text . repeat('.', fillcharcount) . ' ' . folded_line_num . ' L '
 endfunction
-
-nmap <leader>sp :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 "}}}
-"{{{--- Other ---
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_auto_hover=''
-let $BASH_ENV="~/.vim_bash_env"
+"{{{--- Other PLUGINS ---
 
 "--- VIMWIKI ---
 set conceallevel=2
@@ -195,8 +151,9 @@ let g:vimwiki_list = [{'path': '~/projects/wiki/', 'syntax': 'markdown', 'ext': 
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_global_ext = 0
 "nmap <leader>wp :cd %:p:h<cr>:!git commit -a -m "vim autocommit"; git push<cr>
-nmap <leader>wp :!bash /home/yashkir/Sync/wiki/autocommit.sh<CR>
+nmap <leader>wp :!bash /home/yashkir/projects/wiki/autocommit.sh<CR>
 
+"This allows us to check the syntax group under the cursor
 nmap <leader>q :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
@@ -206,11 +163,6 @@ function! <SID>SynStack()
 endfunc
 
 let g:instant_markdown_autostart = 0
-"GIT GUTTER
-set updatetime=500
-"let g:gitgutter_sign_column_always=1
-"let g:gitgutter_enabled=0
-set signcolumn=yes
 
 " FASTFOLD
 nmap zuz <Plug>(FastFoldUpdate)
@@ -218,6 +170,45 @@ let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
+"}}}
+"{{{--- COC ---
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ?
+  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 "}}}
 
 " vim: set foldmethod=marker
