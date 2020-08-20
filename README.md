@@ -1,3 +1,7 @@
+# What is it?
+
+My Linux config files so I can pull them anywhere and don't lose them.
+
 # Usage
 
 Clone a bare repo:
@@ -11,3 +15,10 @@ Set up an alias to use the bare repo:
 Pull it:
 
     config pull
+
+# Things to do on a new machine
+
+- terminal font: Iosevka
+- WM workspace and window shortcuts with META key
+- depending on DE: /usr/bin/setxkbmap -option "ctrl:nocaps"
+- set up pCloud syncs: projects, admin, music_sync
