@@ -4,4 +4,6 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-export PATH=$PATH:~/bin/
+export PATH=$PATH:~/bin/:~/.gem/ruby/2.7.0/bin/
+
+

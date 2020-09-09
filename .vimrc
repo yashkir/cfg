@@ -1,6 +1,7 @@
 " VimRC
 " Yuriy Yashkir (yuriy.yashkir@gmail.com)
 set background=dark
+let g:python3_host_prog = '/usr/bin/python3'
 
 "{{{--- Plugins --- 
 " Set up plug.vim if not installed
@@ -29,6 +30,12 @@ Plug 'Konfekt/FastFold'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 " - Currently Unused -
+Plug 'owickstrom/vim-colors-paramount'
+"Plug 'axvr/photon.vim'
+Plug 'yashkir/photon.vim'
+Plug 'adelarsq/vim-matchit'
+Plug 'preservim/nerdcommenter'
+"Plug 'tmhedberg/SimpylFold'
 "Plug 'ycm-core/YouCompleteMe'
 "Plug 'cohama/lexima.vim'
 call plug#end()
@@ -46,7 +53,8 @@ set showmode
 set number
 set relativenumber
 set incsearch
-set wildmode=list:longest,list:full
+set wildmenu
+set wildmode=list:longest,full
 set updatetime=500
 set signcolumn=yes
 
@@ -94,6 +102,7 @@ nnoremap <C-p> :GFiles<CR>
 ""TODO move this stuff out to appropriate directories
 autocmd FileType make setlocal noexpandtab
 autocmd FileType html setlocal tabstop=2
+autocmd FileType html setlocal textwidth=113
 autocmd FileType c setlocal tabstop=4
 autocmd FileType python setlocal tabstop=4
 autocmd FileType python setlocal foldmethod=indent
@@ -107,6 +116,8 @@ autocmd FileType vimwiki setlocal nowrap
 autocmd FileType vimwiki setlocal shiftwidth=4
 autocmd FileType vimwiki setlocal tabstop=4
 autocmd FileType markdown setlocal tabstop=4
+autocmd FileType markdown setlocal textwidth=78
+autocmd FileType markdown let b:coc_suggest_disable = 1
 "autocmd FileType help wincmd L
 "}}}
 "{{{--- APPEARANCE ---
@@ -130,7 +141,10 @@ let g:jellybeans_overrides = {
 \    'SignColumn': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \    'Pmenu': { '256ctermfg': '255', '256ctermbg': 235 },
 \}
-colorscheme jellybeans
+"colorscheme jellybeans
+
+colorscheme photon
+hi link pythonClassVar Special
 
 set foldtext=MyFoldText()
 set fillchars=vert:\|,fold:.

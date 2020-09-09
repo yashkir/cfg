@@ -14,9 +14,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
-alias ll='ls -alhF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='LC_COLLATE=C ls -alhF --group-directories-first'
+alias la='LC_COLLATE=C ls -A --group-directories-first'
+alias l='LC_COLLATE=C ls -CF --group-directories-first'
 
 #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
