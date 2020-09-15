@@ -18,7 +18,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-marketplace'
 " - Special files -
 Plug 'vimwiki/vimwiki'
@@ -59,6 +59,13 @@ set updatetime=500
 set signcolumn=yes
 
 let $BASH_ENV="~/.vim_bash_env"
+
+""" NetRW
+"let g:netrw_liststyle = 3
+"let g:netrw_banner = 0
+"let g:netrw_winsize = 25
+"let g:netrw_usetab=1
+nmap <Leader>l :Lexplore<cr>
 
 """ FOLDING
 set foldmethod=syntax
@@ -102,7 +109,7 @@ nnoremap <C-p> :GFiles<CR>
 ""TODO move this stuff out to appropriate directories
 autocmd FileType make setlocal noexpandtab
 autocmd FileType html setlocal tabstop=2
-autocmd FileType html setlocal textwidth=113
+autocmd FileType html setlocal textwidth=78
 autocmd FileType c setlocal tabstop=4
 autocmd FileType python setlocal tabstop=4
 autocmd FileType python setlocal foldmethod=indent
@@ -210,12 +217,12 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? coc#_select_confirm() :
-  \ coc#expandableOrJumpable() ?
-  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
+"inoremap <silent><expr> <TAB>
+"  \ pumvisible() ? coc#_select_confirm() :
+"  \ coc#expandableOrJumpable() ?
+"  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"  \ <SID>check_back_space() ? "\<TAB>" :
+"  \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1

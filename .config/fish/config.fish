@@ -11,6 +11,9 @@ set -g theme_date_timezone America/New_York
 set -g theme_date_format "+ %H:%M"
 
 set -g __fish_git_prompt_color_dirtystate brblue
+
 bind \cd delete-char
 bind \cd -M insert delete-char
 bind \cd -M visual delete-char
+
+set -g EDITOR /usr/bin/vim
