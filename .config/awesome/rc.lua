@@ -493,13 +493,32 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
 }
+
+-- turn titlebar on when client is floating
+-------------------------------------------------------------------------------
+client.connect_signal("property::floating", function(c)
+    if c.floating and not c.requests_no_titlebar then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+
+-- turn tilebars on when layout is floating
+-------------------------------------------------------------------------------
+awful.tag.attached_connect_signal(nil, "property::layout", function (t)
+    local float = t.layout.name == "floating"
+    for _,c in pairs(t:clients()) do
+        c.floating = float
+    end
+end)
 -- }}}
 
 -- {{{ Signals
