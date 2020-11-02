@@ -18,12 +18,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-marketplace'
 " - Special files -
 Plug 'vimwiki/vimwiki'
+"Plug 'tools-life/taskwiki'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-Plug 'dbeniamine/todo.txt-vim'
 " - Appearance/syntax -
 Plug 'https://github.com/nanotech/jellybeans.vim'
 Plug 'Konfekt/FastFold'
@@ -38,11 +38,16 @@ Plug 'preservim/nerdcommenter'
 "Plug 'tmhedberg/SimpylFold'
 "Plug 'ycm-core/YouCompleteMe'
 "Plug 'cohama/lexima.vim'
+Plug 'eliba2/vim-node-inspect'
+Plug 'vuciv/vim-bujo'
+"Plug 'leafgarland/typescript-vim'
+Plug 'Alok/notational-fzf-vim'
+Plug 'dbeniamine/todo.txt-vim'
 call plug#end()
 "}}}
 "{{{--- BASIC SETs ---
 set nocompatible
-set tabstop=2
+set tabstop=4
 set shiftwidth=0
 set expandtab
 set smarttab
@@ -75,24 +80,33 @@ let javaScript_fold=1
 
 "set backupdir=~/.vim/backup//
 "set directory=~/.vim/swap//
-"set undodir=~/.vim/undo//
+" Persistent Undo
+set undofile
+set undodir=~/.vim/undo/
 "}}}
 "{{{--- BINDS ---
-let mapleader = ","
+nnoremap <SPACE> <Nop>
+let mapleader = " "
 let maplocalleader = "\\"
-map <F8> :w<CR>:!gcc % -o %< && ./%<<CR>
+map <F8> :w<CR>:!g++ % -o %< && ./%<<CR>
 map <F9> :e $HOME/.vimrc<CR>
 map <F6> :so $HOME/.vimrc<CR>
+map <F12> :e ~/projects/todo/todo.txt<CR>
 
-map <Space> za
+"map <Space> za
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
 
 map <leader>m :w<CR>:!make test<CR>
+map <leader>ty :w<CR>:!yarn run test<CR>
 map <leader>w :w<CR>
 map <leader>r :w<CR>:!%:p<CR>
 map <leader>h :set hlsearch!<CR>
 map <leader>md :InstantMarkdownPreview<CR>
+map <leader>td :e ~/projects/todo/todo.txt<CR>
+
+" greatest remap
+vnoremap <leader>p "_dP
 
 " --- Plugins
 map <leader>g :GitGutterToggle<CR>
@@ -102,7 +116,11 @@ map <leader>f. :Files .<CR>
 map <leader>fh :History<CR>
 map <leader>G :Git<CR>
 map <leader>fh :History<CR>
+map <leader>n :NV!<CR>
 nnoremap <C-p> :GFiles<CR>
+nmap <C-S> <Plug>BujoAddnormal
+nmap <C-Q> <Plug>BujoChecknormal
+
 
 "}}}}}}
 "{{{--- AutoCMD ---
@@ -125,6 +143,7 @@ autocmd FileType vimwiki setlocal tabstop=4
 autocmd FileType markdown setlocal tabstop=4
 autocmd FileType markdown setlocal textwidth=78
 autocmd FileType markdown let b:coc_suggest_disable = 1
+autocmd filetype todo setlocal omnifunc=todo#Complete
 "autocmd FileType help wincmd L
 "}}}
 "{{{--- APPEARANCE ---
@@ -148,9 +167,9 @@ let g:jellybeans_overrides = {
 \    'SignColumn': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \    'Pmenu': { '256ctermfg': '255', '256ctermbg': 235 },
 \}
-"colorscheme jellybeans
+colorscheme jellybeans
 
-colorscheme photon
+"colorscheme photon
 hi link pythonClassVar Special
 
 set foldtext=MyFoldText()
@@ -162,10 +181,16 @@ function! MyFoldText()
     let fillcharcount = winwidth(0) - strdisplaywidth(line_text) - 15
     return line_text . repeat('.', fillcharcount) . ' ' . folded_line_num . ' L '
 endfunction
+" EX
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_liststyle=3
+let g:netrw_winsize=15
 "}}}
 "{{{--- Other PLUGINS ---
 
 "--- VIMWIKI ---
+let g:taskwiki_markup_syntax = "markdown"
 set conceallevel=2
 "let g:vimwiki_folding = 'list'
 let g:vimwiki_list = [{'path': '~/projects/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
@@ -191,6 +216,12 @@ let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
+let g:nv_search_paths = ['~/projects/wiki', '~/projects/notes']
+let g:nv_use_short_pathnames = 1
+
+let g:bujo#window_width = 40
+""let g:Todo_fold_char='+'
+
 "}}}
 "{{{--- COC ---
 " GoTo code navigation.
@@ -198,6 +229,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gq <Plug>(coc-action-do-quickfix)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -217,12 +249,12 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-"inoremap <silent><expr> <TAB>
-"  \ pumvisible() ? coc#_select_confirm() :
-"  \ coc#expandableOrJumpable() ?
-"  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"  \ <SID>check_back_space() ? "\<TAB>" :
-"  \ coc#refresh()
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ?
+  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
