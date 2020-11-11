@@ -7,10 +7,9 @@ font pango:Iosevka Term Extended 11
 #
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000033 --nofork
 exec --no-startup-id nm-applet
-
-exec_always setxkbmap -option "ctrl:nocaps"
+exec setxkbmap -option "ctrl:nocaps"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -71,16 +70,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
+set $ws1 "1:wrk"
+set $ws2 "2:www"
+set $ws3 "3:com"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10: mon"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -129,8 +128,16 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+hide_edge_borders smart
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    workspace_min_width 50
+    strip_workspace_name no
+    strip_workspace_numbers no
+    colors {
+        urgent_workspace #2f343a #ffff00 #ffffff
+    }
+    status_command i3status
 }

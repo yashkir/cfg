@@ -43,6 +43,9 @@ Plug 'vuciv/vim-bujo'
 "Plug 'leafgarland/typescript-vim'
 Plug 'Alok/notational-fzf-vim'
 Plug 'dbeniamine/todo.txt-vim'
+Plug 'puremourning/vimspector' "TODO check it out
+Plug 'szw/vim-maximizer'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 "}}}
 "{{{--- BASIC SETs ---
@@ -88,10 +91,12 @@ set undodir=~/.vim/undo/
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 let maplocalleader = "\\"
-map <F8> :w<CR>:!g++ % -o %< && ./%<<CR>
-map <F9> :e $HOME/.vimrc<CR>
-map <F6> :so $HOME/.vimrc<CR>
-map <F12> :e ~/projects/todo/todo.txt<CR>
+map <leader>ve :e $HOME/.vimrc<CR>
+map <leader>vs :so $HOME/.vimrc<CR>
+
+"Run current file
+map <leader>rc :w<CR>:!g++ % -o %< && ./%<<CR>
+map <leader>rr :w<CR>:!%:p<CR>
 
 "map <Space> za
 map <S-Enter> O<Esc>
@@ -100,7 +105,6 @@ map <CR> o<Esc>
 map <leader>m :w<CR>:!make test<CR>
 map <leader>ty :w<CR>:!yarn run test<CR>
 map <leader>w :w<CR>
-map <leader>r :w<CR>:!%:p<CR>
 map <leader>h :set hlsearch!<CR>
 map <leader>md :InstantMarkdownPreview<CR>
 map <leader>td :e ~/projects/todo/todo.txt<CR>
@@ -120,6 +124,9 @@ map <leader>n :NV!<CR>
 nnoremap <C-p> :GFiles<CR>
 nmap <C-S> <Plug>BujoAddnormal
 nmap <C-Q> <Plug>BujoChecknormal
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dh <Plug>VimspectorStepOut
 
 
 "}}}}}}
@@ -216,10 +223,25 @@ let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
-let g:nv_search_paths = ['~/projects/wiki', '~/projects/notes']
+let g:nv_search_paths = ['~/projects/wiki/inbox', '~/projects/wiki', '~/projects/notes']
 let g:nv_use_short_pathnames = 1
 
 let g:bujo#window_width = 40
+let g:vimspector_enable_mappings = 'HUMAN'
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_checkers = ['eslint']
+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+autocmd FileType vimwiki let b:surround_98 = "**\r**"
+autocmd FileType markdown let b:surround_98 = "**\r**"
 ""let g:Todo_fold_char='+'
 
 "}}}
