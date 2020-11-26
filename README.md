@@ -16,7 +16,7 @@ Pull it:
 
     config pull
 
-# Things to do on a new machine
+# New Machine Checklist:
 
 - terminal font: Iosevka
 - WM workspace and window shortcuts with META key

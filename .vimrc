@@ -17,6 +17,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-marketplace'
@@ -99,8 +100,6 @@ map <leader>rc :w<CR>:!g++ % -o %< && ./%<<CR>
 map <leader>rr :w<CR>:!%:p<CR>
 
 "map <Space> za
-map <S-Enter> O<Esc>
-map <CR> o<Esc>
 
 map <leader>m :w<CR>:!make test<CR>
 map <leader>ty :w<CR>:!yarn run test<CR>
@@ -127,7 +126,13 @@ nmap <C-Q> <Plug>BujoChecknormal
 nmap <leader>dj <Plug>VimspectorStepOver
 nmap <leader>dl <Plug>VimspectorStepInto
 nmap <leader>dh <Plug>VimspectorStepOut
+nmap <leader>dr <Plug>VimspectorReset
 
+nmap <leader>sc :SyntasticCheck<CR>
+nmap <leader>sr :SyntasticReset<CR>
+
+map <leader>cn :cn<CR>
+map <leader>cp :cp<CR>
 
 "}}}}}}
 "{{{--- AutoCMD ---
@@ -158,6 +163,10 @@ autocmd filetype todo setlocal omnifunc=todo#Complete
 "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 "set termguicolors
+
+" GVIM
+set guifont=Iosevka\ Term\ Expanded\ 11
+set guioptions-=T
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -238,8 +247,9 @@ let g:syntastic_typescript_checkers = ['eslint']
 
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0 
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { "mode": "passive" }
 autocmd FileType vimwiki let b:surround_98 = "**\r**"
 autocmd FileType markdown let b:surround_98 = "**\r**"
 ""let g:Todo_fold_char='+'
@@ -270,6 +280,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>rf <Plug>(coc-refactor)
 
 inoremap <silent><expr> <TAB>
   \ pumvisible() ? coc#_select_confirm() :
