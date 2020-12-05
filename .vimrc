@@ -95,6 +95,7 @@ let maplocalleader = "\\"
 map <leader>ve :e $HOME/.vimrc<CR>
 map <leader>vs :so $HOME/.vimrc<CR>
 
+map <leader>D :put =strftime('# %a %Y-%m-%d %H:%M:%S%z')<CR>
 "Run current file
 map <leader>rc :w<CR>:!g++ % -o %< && ./%<<CR>
 map <leader>rr :w<CR>:!%:p<CR>
