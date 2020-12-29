@@ -87,6 +87,8 @@ let javaScript_fold=1
 " Persistent Undo
 set undofile
 set undodir=~/.vim/undo/
+
+let g:termdebug_wide = 163
 "}}}
 "{{{--- BINDS ---
 nnoremap <SPACE> <Nop>
@@ -98,7 +100,9 @@ map <leader>vs :so $HOME/.vimrc<CR>
 map <leader>D :put =strftime('# %a %Y-%m-%d %H:%M')<CR>
 "map <leader>D :put =strftime('# %a %Y-%m-%d %H:%M:%S%z')<CR>
 "Run current file
-map <leader>rc :w<CR>:!g++ % -o %< && ./%<<CR>
+map <leader>rp :w<CR>:!g++ % -o %< && ./%<<CR>
+map <leader>rc :w<CR>:!gcc % -o %< && ./%<<CR>
+map <leader>rdc :w<CR>:!gcc -g % -o %< && gdb ./%<<CR>
 map <leader>rr :w<CR>:!%:p<CR>
 
 "map <Space> za
